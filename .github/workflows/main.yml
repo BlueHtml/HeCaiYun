@@ -1,0 +1,23 @@
+name: Run
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+
+jobs:
+  build:
+
+    if: github.actor == github.repository_owner
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@main
+    - name: Run
+      run: |
+        pip3 install requests
+        python3 SignIn.py
+      env:
+        LUCK_DRAW: ${{ secrets.LUCK_DRAW }}
+        PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+        COOKIE: ${{ secrets.COOKIE }}
+        REFERER: ${{ secrets.REFERER }}
